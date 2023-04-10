@@ -1,0 +1,31 @@
+sensor:
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------------  STROM-ÜBERWACHUNG  ------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Hierüber wird gemessen, wieviel Strom der Kasten verbraucht. 
+# Um die Messungen so genau wie möglich zu machen, messe ich nur den Verbrauch des 24V-AC-Trafos.
+# Da die Ventile eine hohe Stromaufnahme haben, sollte sich so gut ausrechnen lassen, wenn ein Ventil defekt ist.
+  - platform: adc
+    pin: ${ventil_consumption}
+    name: ${devicename}_ventil_consumption
+    id: ${devicename}_ventil_consumption
+    icon: mdi:lightning-bolt
+    unit_of_measurement: "W"
+    update_interval: 0.5s
+    attenuation: auto
+    filters:
+      - throttle_average: 30s
+#      - sliding_window_moving_average :
+#          window_size: 60   
+#          send_every: 30
+#          send_first_at: 30
+      - calibrate_linear:
+          # Measured value with no consumer
+          - 2.57 -> 0.0
+          # siehe Kalibrationstabelle
+          - 2.755 -> 12.0
+
+
+
