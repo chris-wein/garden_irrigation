@@ -1,0 +1,66 @@
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------  BUTTON / NOW   --------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+
+button:
+  - platform: template
+    name: ${devicename}_ventil_1_now_button
+    id: ${devicename}_ventil_1_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_1_operation
+
+  - platform: template
+    name: ${devicename}_ventil_2_now_button
+    id: ${devicename}_ventil_2_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_2_operation
+
+  - platform: template
+    name: ${devicename}_ventil_3_now_button
+    id: ${devicename}_ventil_3_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_3_operation
+
+  - platform: template
+    name: ${devicename}_ventil_4_now_button
+    id: ${devicename}_ventil_4_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_4_operation
+
+  - platform: template
+    name: ${devicename}_ventil_5_now_button
+    id: ${devicename}_ventil_5_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_5_operation
+
+  - platform: template
+    name: ${devicename}_ventil_6_now_button
+    id: ${devicename}_ventil_6_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_6_operation
+
+  - platform: template
+    name: ${devicename}_ventil_7_now_button
+    id: ${devicename}_ventil_7_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_7_operation
+
+  - platform: template
+    name: ${devicename}_ventil_8_now_button
+    id: ${devicename}_ventil_8_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_8_operation
+
