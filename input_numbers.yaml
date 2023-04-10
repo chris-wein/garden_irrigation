@@ -1,0 +1,234 @@
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------  BEWÄSSERUNGSDAUER   --------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Update Intervall => funktioniert nicht für Apex-Dashboard
+
+number:
+  - platform: template
+    name: ${devicename}_ventil_1_duration
+    id: ${devicename}_ventil_1_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_2_duration
+    id: ${devicename}_ventil_2_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_3_duration
+    id: ${devicename}_ventil_3_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_4_duration
+    id: ${devicename}_ventil_4_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_5_duration
+    id: ${devicename}_ventil_5_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_6_duration
+    id: ${devicename}_ventil_6_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_7_duration
+    id: ${devicename}_ventil_7_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+
+  - platform: template
+    name: ${devicename}_ventil_8_duration
+    id: ${devicename}_ventil_8_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 5.0
+    max_value: 60.0
+    initial_value: 20
+    step: 5
+    icon: mdi:timer-outline
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ------------------------------  BEWÄSSERUNGSTAGE   --------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Update Intervall => funktioniert nicht für Apex-Dashboard
+
+  - platform: template
+    name: ${devicename}_ventil_1_days
+    id: ${devicename}_ventil_1_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_2_days
+    id: ${devicename}_ventil_2_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_3_days
+    id: ${devicename}_ventil_3_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_4_days
+    id: ${devicename}_ventil_4_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_5_days
+    id: ${devicename}_ventil_5_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_6_days
+    id: ${devicename}_ventil_6_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_7_days
+    id: ${devicename}_ventil_7_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+  - platform: template
+    name: ${devicename}_ventil_8_days
+    id: ${devicename}_ventil_8_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
