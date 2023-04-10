@@ -1,0 +1,59 @@
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------- TEXT-SENSOR, BEWÄSSERUNGSZEITEN   --------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Sonne definieren
+sun:
+  latitude:  49.398750°
+  longitude: 8.672434°
+  id: sun_sun
+
+
+# Bewässerungszeit Morgens
+text_sensor:
+  - platform: template
+    name: id(${devicename}_irrigation_time_morning
+    icon: mdi:weather-sunset-up
+    lambda: |-
+      auto sunrise = id(sun_sun).sunrise(-0.833);
+      auto time = id(sntp_time).now();
+      if (!sunrise.has_value())
+        return {"NaN"};
+      int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + ${shift_sunrise} ;
+      int sunrise_hour = int(sunrise_min / 60);
+      int sunrise_minute = sunrise_min % 60;
+      if((sunrise_hour == time.hour) and (sunrise_minute == time.minute))
+        if(!id(${devicename}_morning_trigger).state)
+         id(${devicename}_morning_trigger).turn_on();
+      char buffer[8];
+      sprintf(buffer,"%02i:%02i", sunrise_hour , sunrise_minute);
+      return {buffer};
+
+# Bewässerungszeit Abends
+  - platform: template
+    name: "id(${devicename}_irrigation_time_evening"
+    icon: mdi:weather-sunset
+    lambda: |-
+      auto sunset = id(sun_sun).sunset(-0.833);
+      auto time = id(sntp_time).now();
+      if (!sunset.has_value())
+        return {"NaN"};
+      int sunset_min = sunset.value().hour * 60 + sunset.value().minute + ${shift_sunset};
+      int sunset_hour = int(sunset_min / 60);
+      int sunset_minute = sunset_min % 60;
+      if((sunset_hour == time.hour) and (sunset_minute == time.minute))
+        if(!id(${devicename}_evening_trigger).state)
+         id(${devicename}_evening_trigger).turn_on();
+      char buffer[8];
+      sprintf(buffer,"%02i:%02i", sunset_hour , sunset_minute);
+      return {buffer};
+
+
+
+
+
+
+
+
+
