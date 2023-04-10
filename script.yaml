@@ -1,0 +1,91 @@
+# Hier werden die tatsächlichen Ventile bzw. Relais angesteuert und geschaltet
+
+
+script:
+- id: ${devicename}_ventil_1_operation
+  mode: single
+  then:  
+  - switch.turn_on: ${devicename}_ventil_1
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_1_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_1     
+
+- id: ${devicename}_ventil_2_operation
+  mode: single
+  then:
+  - delay: 1s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_2
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_2_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_2     
+
+- id: ${devicename}_ventil_3_operation
+  mode: single
+  then:
+  - delay: 2s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_3
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_3_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_3     
+
+- id: ${devicename}_ventil_4_operation
+  mode: single
+  then:
+  - delay: 3s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_4
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_4_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_4     
+
+- id: ${devicename}_ventil_5_operation
+  mode: single
+  then:
+  - delay: 4s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_5
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_5_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_5     
+
+- id: ${devicename}_ventil_6_operation
+  mode: single
+  then:
+  - delay: 5s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_6
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_6_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_6
+  
+- id: ${devicename}_ventil_7_operation
+  mode: single
+  then:
+  - delay: 6s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_7
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_7_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_7    
+
+- id: ${devicename}_ventil_8_operation
+  mode: single
+  then:
+  - delay: 7s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_8
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_8_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_8    
+
