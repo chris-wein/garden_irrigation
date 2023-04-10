@@ -289,3 +289,143 @@ switch:
     id:  ${devicename}_ventil_8_allow
     optimistic: true
     restore_state: yes
+
+
+
+# -------------------------------------------------------------------------------------------------
+# ---------------------------  TRIGGER FÜR DIE MORGENBEWÄSSERUNG  ---------------------------------
+# -------------------------------------------------------------------------------------------------
+
+  - platform: template
+    id:  ${devicename}_morning_trigger
+    optimistic: true
+    restore_state: yes
+    on_turn_on:
+      - switch.turn_off: ${devicename}_morning_trigger # damit er am nächsten Tag wieder auslöst mit "on_turn_on" 
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_1_morning
+              - switch.is_on: ${devicename}_ventil_1_allow
+          then: 
+            - script.execute: ${devicename}_ventil_1_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_2_morning
+              - switch.is_on: ${devicename}_ventil_2_allow
+          then: 
+            - script.execute: ${devicename}_ventil_2_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_3_morning
+              - switch.is_on: ${devicename}_ventil_3_allow
+          then: 
+            - script.execute: ${devicename}_ventil_3_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_4_morning
+              - switch.is_on: ${devicename}_ventil_4_allow
+          then: 
+            - script.execute: ${devicename}_ventil_4_operation
+      - if: 
+          condition: 
+             and:
+              - switch.is_on: ${devicename}_ventil_5_morning
+              - switch.is_on: ${devicename}_ventil_5_allow
+          then: 
+            - script.execute: ${devicename}_ventil_5_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_6_morning
+              - switch.is_on: ${devicename}_ventil_6_allow
+          then: 
+              - script.execute: ${devicename}_ventil_6_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_7_morning
+              - switch.is_on: ${devicename}_ventil_7_allow
+          then: 
+            - script.execute: ${devicename}_ventil_7_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_8_morning
+              - switch.is_on: ${devicename}_ventil_8_allow
+          then: 
+            - script.execute: ${devicename}_ventil_8_operation
+
+
+
+
+# -------------------------------------------------------------------------------------------------
+# ---------------------------  TRIGGER FÜR DIE MORGENBEWÄSSERUNG  ---------------------------------
+# -------------------------------------------------------------------------------------------------
+
+  - platform: template
+    id:  ${devicename}_evening_trigger
+    optimistic: true
+    restore_state: yes
+    on_turn_on:
+      - switch.turn_off: ${devicename}_evening_trigger
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_1_evening
+              - switch.is_on: ${devicename}_ventil_1_allow
+          then: 
+            - script.execute: ${devicename}_ventil_1_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_2_evening
+              - switch.is_on: ${devicename}_ventil_2_allow
+          then: 
+            - script.execute: ${devicename}_ventil_2_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_3_evening
+              - switch.is_on: ${devicename}_ventil_3_allow
+          then: 
+            - script.execute: ${devicename}_ventil_3_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_4_evening
+              - switch.is_on: ${devicename}_ventil_4_allow
+          then: 
+            - script.execute: ${devicename}_ventil_4_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_5_evening
+              - switch.is_on: ${devicename}_ventil_5_allow
+          then: 
+            - script.execute: ${devicename}_ventil_5_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_6_allow
+              - switch.is_on: ${devicename}_ventil_6_evening
+          then: 
+            - script.execute: ${devicename}_ventil_6_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_7_evening
+              - switch.is_on: ${devicename}_ventil_7_allow
+          then: 
+            - script.execute: ${devicename}_ventil_7_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_8_evening
+              - switch.is_on: ${devicename}_ventil_8_allow
+          then: 
+            - script.execute: ${devicename}_ventil_8_operation
+
