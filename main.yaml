@@ -1,0 +1,1167 @@
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------- TEXT-SENSOR, BEWÄSSERUNGSZEITEN   --------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Sonne definieren
+sun:
+  latitude:  49.398750°
+  longitude: 8.672434°
+  id: sun_sun
+
+# Bewässerungszeit Morgens
+text_sensor:
+  - platform: template
+    name: "id(${devicename}_watertime_morning"
+    icon: mdi:weather-sunset-up
+    lambda: |-
+      auto sunrise = id(sun_sun).sunrise(-0.833);
+      auto time = id(sntp_time).now();
+      if (!sunrise.has_value())
+        return {"NaN"};
+      int sunrise_min = sunrise.value().hour * 60 + sunrise.value().minute + ${shift_sunrise} ;
+      int sunrise_hour = int(sunrise_min / 60);
+      int sunrise_minute = sunrise_min % 60;
+      if((sunrise_hour == time.hour) and (sunrise_minute == time.minute))
+        if(!id(${devicename}_watertime_morning_switch).state)
+         id(${devicename}_watertime_morning_switch).turn_on();
+      char buffer[8];
+      sprintf(buffer,"%02i:%02i", sunrise_hour , sunrise_minute);
+      return {buffer};
+# Bewässerungszeit Abends
+  - platform: template
+    name: "id(${devicename}_watertime_evening"
+    icon: mdi:weather-sunset
+    lambda: |-
+      auto sunset = id(sun_sun).sunset(-0.833);
+      auto time = id(sntp_time).now();
+      if (!sunset.has_value())
+        return {"NaN"};
+      int sunset_min = sunset.value().hour * 60 + sunset.value().minute + ${shift_sunset};
+      int sunset_hour = int(sunset_min / 60);
+      int sunset_minute = sunset_min % 60;
+      if((sunset_hour == time.hour) and (sunset_minute == time.minute))
+        if(!id(${devicename}_watertime_evening_switch).state)
+         id(${devicename}_watertime_evening_switch).turn_on();
+      char buffer[8];
+      sprintf(buffer,"%02i:%02i", sunset_hour , sunset_minute);
+      return {buffer};
+
+
+
+
+
+
+
+
+
+switch:
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------- VENTILE   ---------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Masterventil 
+  - platform: gpio
+    pin: ${ventil_master}
+    name: ${devicename}_ventil_master
+    id: ${devicename}_ventil_master
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 1 
+  - platform: gpio
+    pin: ${ventil_1}
+    name: ${devicename}_ventil_1
+    id: ${devicename}_ventil_1
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 2 
+  - platform: gpio
+    pin: ${ventil_2}
+    name: ${devicename}_ventil_2
+    id: ${devicename}_ventil_2
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 3 
+  - platform: gpio
+    pin: ${ventil_3}
+    name: ${devicename}_ventil_3
+    id: ${devicename}_ventil_3
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 4 
+  - platform: gpio
+    pin: ${ventil_4}
+    name: ${devicename}_ventil_4
+    id: ${devicename}_ventil_4
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 5
+  - platform: gpio
+    pin: ${ventil_5}
+    name: ${devicename}_ventil_5
+    id: ${devicename}_ventil_5
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 6
+  - platform: gpio
+    pin: ${ventil_6}
+    name: ${devicename}_ventil_6
+    id: ${devicename}_ventil_6
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 7
+  - platform: gpio
+    pin: ${ventil_7}
+    name: ${devicename}_ventil_7
+    id: ${devicename}_ventil_7
+    inverted: true
+    icon: mdi:pipe-valve
+# Ventil 8
+  - platform: gpio
+    pin: ${ventil_8}
+    name: ${devicename}_ventil_8
+    id: ${devicename}_ventil_8
+    inverted: true
+    icon: mdi:pipe-valve
+# An- / Aussschalter für Trafo
+  - platform: gpio
+    pin: ${trafo}
+    name: ${devicename}_trafo
+    id: ${devicename}_trafo
+    inverted: true
+    icon: mdi:power-plug-outline
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------------- BEWÄSSERUNG AM MORGEN  -------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+  - platform: template
+    name: ${devicename}_ventil_1_morning
+    id:  ${devicename}_ventil_1_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_2_morning
+    id:  ${devicename}_ventil_2_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_3_morning
+    id:  ${devicename}_ventil_3_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_4_morning
+    id:  ${devicename}_ventil_4_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_5_morning
+    id:  ${devicename}_ventil_5_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_6_morning
+    id:  ${devicename}_ventil_6_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_7_morning
+    id:  ${devicename}_ventil_7_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+  - platform: template
+    name: ${devicename}_ventil_8_morning
+    id:  ${devicename}_ventil_8_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------- BEWÄSSERUNG AM ABEND  -----------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+  - platform: template
+    name: ${devicename}_ventil_1_evening
+    id:  ${devicename}_ventil_1_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_2_evening
+    id:  ${devicename}_ventil_2_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_3_evening
+    id:  ${devicename}_ventil_3_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_4_evening
+    id:  ${devicename}_ventil_4_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_5_evening
+    id:  ${devicename}_ventil_5_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_6_evening
+    id:  ${devicename}_ventil_6_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_7_evening
+    id:  ${devicename}_ventil_7_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+  - platform: template
+    name: ${devicename}_ventil_8_evening
+    id:  ${devicename}_ventil_8_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------------- ALLOW  -----------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ohne Name, da im Frontend nicht gebraucht. Werden zur Prüfung der 24h/48h/72-Zeiten genutzt
+# und dienen als "Anschaltzeitfenster"
+
+  - platform: template
+    id:  ${devicename}_ventil_1_allow
+    optimistic: true
+    restore_state: yes
+  - platform: template
+    id:  ${devicename}_ventil_2_allow
+    optimistic: true
+    restore_state: yes
+    
+  - platform: template
+    id:  ${devicename}_ventil_3_allow
+    optimistic: true
+    restore_state: yes
+  - platform: template
+    id:  ${devicename}_ventil_4_allow
+    optimistic: true
+    restore_state: yes
+  - platform: template
+    id:  ${devicename}_ventil_5_allow
+    optimistic: true
+    restore_state: yes
+  - platform: template
+    id:  ${devicename}_ventil_6_allow
+    optimistic: true
+    restore_state: yes
+  - platform: template
+    id:  ${devicename}_ventil_7_allow
+    optimistic: true
+    restore_state: yes
+  - platform: template
+    id:  ${devicename}_ventil_8_allow
+    optimistic: true
+    restore_state: yes
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------------- SKRIPTE AUFRUFEN  -------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# --------------------------------------  MORGENS  ----------------------------------------
+# -----------------------------------------------------------------------------------------
+  - platform: template
+    id:  ${devicename}_watertime_morning_switch
+    optimistic: true
+    restore_state: yes
+    on_turn_on:
+      - switch.turn_off: ${devicename}_watertime_morning_switch
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_1_morning
+              - switch.is_on: ${devicename}_ventil_1_allow
+          then: 
+            - script.execute: ${devicename}_ventil_1_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_2_morning
+              - switch.is_on: ${devicename}_ventil_2_allow
+          then: 
+            - script.execute: ${devicename}_ventil_2_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_3_morning
+              - switch.is_on: ${devicename}_ventil_3_allow
+          then: 
+            - script.execute: ${devicename}_ventil_3_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_4_morning
+              - switch.is_on: ${devicename}_ventil_4_allow
+          then: 
+            - script.execute: ${devicename}_ventil_4_operation
+      - if: 
+          condition: 
+             and:
+              - switch.is_on: ${devicename}_ventil_5_morning
+              - switch.is_on: ${devicename}_ventil_5_allow
+          then: 
+            - script.execute: ${devicename}_ventil_5_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_6_morning
+              - switch.is_on: ${devicename}_ventil_6_allow
+          then: 
+              - script.execute: ${devicename}_ventil_6_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_7_morning
+              - switch.is_on: ${devicename}_ventil_7_allow
+          then: 
+            - script.execute: ${devicename}_ventil_7_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_8_morning
+              - switch.is_on: ${devicename}_ventil_8_allow
+          then: 
+            - script.execute: ${devicename}_ventil_8_operation
+
+# -----------------------------------------------------------------------------------------
+# --------------------------------------  ABENDS  ----------------------------------------
+# -----------------------------------------------------------------------------------------
+  - platform: template
+    id:  ${devicename}_watertime_evening_switch
+    optimistic: true
+    restore_state: yes
+    on_turn_on:
+      - switch.turn_off: ${devicename}_watertime_evening_switch
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_1_evening
+              - switch.is_on: ${devicename}_ventil_1_allow
+          then: 
+            - script.execute: ${devicename}_ventil_1_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_2_evening
+              - switch.is_on: ${devicename}_ventil_2_allow
+          then: 
+            - script.execute: ${devicename}_ventil_2_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_3_evening
+              - switch.is_on: ${devicename}_ventil_3_allow
+          then: 
+            - script.execute: ${devicename}_ventil_3_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_4_evening
+              - switch.is_on: ${devicename}_ventil_4_allow
+          then: 
+            - script.execute: ${devicename}_ventil_4_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_5_evening
+              - switch.is_on: ${devicename}_ventil_5_allow
+          then: 
+            - script.execute: ${devicename}_ventil_5_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_6_allow
+              - switch.is_on: ${devicename}_ventil_6_evening
+          then: 
+            - script.execute: ${devicename}_ventil_6_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_7_evening
+              - switch.is_on: ${devicename}_ventil_7_allow
+          then: 
+            - script.execute: ${devicename}_ventil_7_operation
+      - if: 
+          condition: 
+            and:
+              - switch.is_on: ${devicename}_ventil_8_evening
+              - switch.is_on: ${devicename}_ventil_8_allow
+          then: 
+            - script.execute: ${devicename}_ventil_8_operation
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------  BUTTON / NOW   --------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+button:
+  - platform: template
+    name: ${devicename}_ventil_1_now_button
+    id: ${devicename}_ventil_1_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_1_operation
+  - platform: template
+    name: ${devicename}_ventil_2_now_button
+    id: ${devicename}_ventil_2_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_2_operation
+  - platform: template
+    name: ${devicename}_ventil_3_now_button
+    id: ${devicename}_ventil_3_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_3_operation
+  - platform: template
+    name: ${devicename}_ventil_4_now_button
+    id: ${devicename}_ventil_4_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_4_operation
+  - platform: template
+    name: ${devicename}_ventil_5_now_button
+    id: ${devicename}_ventil_5_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_5_operation
+  - platform: template
+    name: ${devicename}_ventil_6_now_button
+    id: ${devicename}_ventil_6_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_6_operation
+  - platform: template
+    name: ${devicename}_ventil_7_now_button
+    id: ${devicename}_ventil_7_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_7_operation
+  - platform: template
+    name: ${devicename}_ventil_8_now_button
+    id: ${devicename}_ventil_8_now_button
+    icon: mdi:watering-can-outline
+    on_press:
+      - script.execute: ${devicename}_ventil_8_operation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------  BEWÄSSERUNGSDAUER   --------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Update Intervall => funktioniert nicht für Apex-Dashboard
+number:
+  - platform: template
+    name: ${devicename}_ventil_1_duration
+    id: ${devicename}_ventil_1_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_2_duration
+    id: ${devicename}_ventil_2_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_3_duration
+    id: ${devicename}_ventil_3_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_4_duration
+    id: ${devicename}_ventil_4_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_5_duration
+    id: ${devicename}_ventil_5_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_6_duration
+    id: ${devicename}_ventil_6_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_7_duration
+    id: ${devicename}_ventil_7_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 10
+    max_value: 60
+    initial_value: 20
+    step: 10
+    icon: mdi:timer-outline
+  - platform: template
+    name: ${devicename}_ventil_8_duration
+    id: ${devicename}_ventil_8_duration
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: min
+    mode: box
+    min_value: 5.0
+    max_value: 60.0
+    initial_value: 20
+    step: 5
+    icon: mdi:timer-outline
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ------------------------------  BEWÄSSERUNGSTAGE   --------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Update Intervall => funktioniert nicht für Apex-Dashboard
+  - platform: template
+    name: ${devicename}_ventil_1_days
+    id: ${devicename}_ventil_1_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_2_days
+    id: ${devicename}_ventil_2_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_3_days
+    id: ${devicename}_ventil_3_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_4_days
+    id: ${devicename}_ventil_4_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_5_days
+    id: ${devicename}_ventil_5_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_6_days
+    id: ${devicename}_ventil_6_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_7_days
+    id: ${devicename}_ventil_7_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+  - platform: template
+    name: ${devicename}_ventil_8_days
+    id: ${devicename}_ventil_8_days
+    restore_value: yes
+    optimistic: true
+    unit_of_measurement: h
+    mode: box
+    min_value: 24
+    max_value: 72
+    initial_value: 24
+    step: 24
+    icon: mdi:calendar-today
+
+
+
+
+
+
+
+
+
+
+
+
+sensor:
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------------  STROM-ÜBERWACHUNG  ------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Hierüber wird gemessen, wieviel Strom der Kasten verbraucht. 
+# Um die Messungen so genau wie möglich zu machen, messe ich nur den Verbrauch des 24V-AC-Trafos.
+# Da die Ventile eine hohe Stromaufnahme haben, sollte sich so gut ausrechnen lassen, wenn ein Ventil defekt ist.
+  - platform: adc
+    pin: ${ventil_consumption}
+    name: ${devicename}_ventil_consumption
+    id: ${devicename}_ventil_consumption
+    icon: mdi:lightning-bolt
+    unit_of_measurement: "W"
+    update_interval: 0.5s
+    attenuation: auto
+    filters:
+      - throttle_average: 30s
+#      - sliding_window_moving_average :
+#          window_size: 60   
+#          send_every: 30
+#          send_first_at: 30
+      - calibrate_linear:
+          # Measured value with no consumer
+          - 2.57 -> 0.0
+          # siehe Kalibrationstabelle
+          - 2.755 -> 12.0
+
+
+
+
+
+
+    
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# --------------------------------- AUTOMATIKEN  ------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+time:
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------- 24h / 48h / 72h - REGELGUNG  -----------------------------------------
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------------
+
+# -------------------------------------------------------
+# ---------------- 24h   --------------------------------
+# -------------------------------------------------------
+  - platform: sntp
+    timezone: Europe/Berlin
+    on_time:
+    - seconds: 0
+      minutes: 0
+      hours: 4  
+      then:
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_1_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_1_allow
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_2_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_2_allow
+        - if: 
+              condition:
+                - lambda: 'return id(${devicename}_ventil_3_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+              then:
+                - switch.turn_on: ${devicename}_ventil_3_allow
+        - if: 
+              condition:
+                - lambda: 'return id(${devicename}_ventil_4_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+              then:
+                - switch.turn_on: ${devicename}_ventil_4_allow
+        - if: 
+              condition:
+                - lambda: 'return id(${devicename}_ventil_5_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+              then:
+                - switch.turn_on: ${devicename}_ventil_5_allow
+        - if: 
+              condition:
+                - lambda: 'return id(${devicename}_ventil_6_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+              then:
+                - switch.turn_on: ${devicename}_ventil_6_allow
+        - if: 
+              condition:
+                - lambda: 'return id(${devicename}_ventil_7_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+              then:
+                - switch.turn_on: ${devicename}_ventil_7_allow
+        - if: 
+              condition:
+                - lambda: 'return id(${devicename}_ventil_8_days).state == 24;' # prüfen, welches Zeitinterval eingestellt ist
+              then:
+                - switch.turn_on: ${devicename}_ventil_8_allow
+
+
+# -------------------------------------------------------
+# ---------------- 48h   --------------------------------
+# -------------------------------------------------------
+  - platform: sntp
+    timezone: Europe/Berlin
+    on_time:
+    - seconds: 0
+      minutes: 0
+      hours: 4  
+      days_of_month: 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31  # mit ungeraden Zahl nicht so gut, weil er dann am 31. und am 1. nicht wässert
+      then:
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_1_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_1_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_1_allow
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_2_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_2_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_2_allow
+              
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_3_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_3_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_3_allow
+              
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_4_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_4_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_4_allow
+              
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_5_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_5_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_5_allow
+              
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_6_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_6_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_6_allow
+              
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_7_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_7_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_7_allow
+              
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_8_days).state == 48;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_8_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_8_allow
+
+# -------------------------------------------------------
+# ---------------- 72h   --------------------------------
+# -------------------------------------------------------
+  - platform: sntp
+    timezone: Europe/Berlin
+    on_time:
+    - seconds: 0
+      minutes: 0
+      hours: 4  
+      days_of_month: 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31
+      then:
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_1_days).state == 72;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_1_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_1_allow
+
+
+
+
+
+# -------------------------------------------------------
+# ---------------- 96h   --------------------------------
+# -------------------------------------------------------
+  - platform: sntp
+    timezone: Europe/Berlin
+    on_time:
+    - seconds: 0
+      minutes: 0
+      hours: 4  
+      days_of_month: 1, 5, 8, 13, 17, 21, 25, 29
+      then:
+        - if: 
+            condition:
+              - lambda: 'return id(${devicename}_ventil_1_days).state == 96;' # prüfen, welches Zeitinterval eingestellt ist
+            then:
+              - switch.turn_on: ${devicename}_ventil_1_allow
+              - delay: 24h
+              - switch.turn_off: ${devicename}_ventil_1_allow
+
+
+
+
+
+# ------------------------------------------------------------------------------------------------------------
+# --------------------------------- MASTERVENTIL & TRAFO ABSCHALTEN  ------------------------------------------
+# -------------------------------------------------------------------------------------------------------------
+# Das Anschalten passiert direkt im Skript zusammen mit dem Ventil
+  - platform: sntp
+    timezone: Europe/Berlin
+    id: sntp_time
+    on_time:
+    - seconds: 0
+      minutes: /5   
+      then:
+        - if: 
+            condition:
+              and:
+                - switch.is_off: ${devicename}_ventil_1 
+                - switch.is_off: ${devicename}_ventil_2 
+                - switch.is_off: ${devicename}_ventil_3 
+                - switch.is_off: ${devicename}_ventil_4 
+                - switch.is_off: ${devicename}_ventil_5 
+                - switch.is_off: ${devicename}_ventil_6 
+                - switch.is_off: ${devicename}_ventil_7 
+                - switch.is_off: ${devicename}_ventil_8 
+            then:
+              - switch.turn_off: ${devicename}_trafo     
+              - switch.turn_off: ${devicename}_ventil_master     
+
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+# ----------------------------- SKRIPT EXECUTE ---------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+# ------------------------------------ SKRIPTE ---------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------
+script:
+- id: ${devicename}_ventil_1_operation
+  mode: single
+  then:  
+  - switch.turn_on: ${devicename}_ventil_1
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_1_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_1     
+- id: ${devicename}_ventil_2_operation
+  mode: single
+  then:
+  - delay: 1s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_2
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_2_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_2     
+- id: ${devicename}_ventil_3_operation
+  mode: single
+  then:
+  - delay: 2s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_3
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_3_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_3     
+- id: ${devicename}_ventil_4_operation
+  mode: single
+  then:
+  - delay: 3s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_4
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_4_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_4     
+- id: ${devicename}_ventil_5_operation
+  mode: single
+  then:
+  - delay: 4s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_5
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_5_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_5     
+- id: ${devicename}_ventil_6_operation
+  mode: single
+  then:
+  - delay: 5s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_6
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_6_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_6
+  
+- id: ${devicename}_ventil_7_operation
+  mode: single
+  then:
+  - delay: 6s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_7
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_7_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_7    
+- id: ${devicename}_ventil_8_operation
+  mode: single
+  then:
+  - delay: 7s  # Damit beim Automatik-Betrieb nicht alle Relais gleichzeitig schalten und den ESP32 zum Absturz bringen
+  - switch.turn_on: ${devicename}_ventil_8
+  - switch.turn_on: ${devicename}_trafo
+  - delay: 1s
+  - switch.turn_on: ${devicename}_ventil_master
+  - delay: !lambda 'return id(${devicename}_ventil_8_duration).state * 60000;'
+  - switch.turn_off: ${devicename}_ventil_8    
