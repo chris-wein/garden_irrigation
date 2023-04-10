@@ -1,0 +1,291 @@
+
+switch:
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------- VENTILE   ---------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# Masterventil 
+  - platform: gpio
+    pin: ${ventil_master}
+    name: ${devicename}_ventil_master
+    id: ${devicename}_ventil_master
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 1 
+  - platform: gpio
+    pin: ${ventil_1}
+    name: ${devicename}_ventil_1
+    id: ${devicename}_ventil_1
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 2 
+  - platform: gpio
+    pin: ${ventil_2}
+    name: ${devicename}_ventil_2
+    id: ${devicename}_ventil_2
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 3 
+  - platform: gpio
+    pin: ${ventil_3}
+    name: ${devicename}_ventil_3
+    id: ${devicename}_ventil_3
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 4 
+  - platform: gpio
+    pin: ${ventil_4}
+    name: ${devicename}_ventil_4
+    id: ${devicename}_ventil_4
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 5
+  - platform: gpio
+    pin: ${ventil_5}
+    name: ${devicename}_ventil_5
+    id: ${devicename}_ventil_5
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 6
+  - platform: gpio
+    pin: ${ventil_6}
+    name: ${devicename}_ventil_6
+    id: ${devicename}_ventil_6
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 7
+  - platform: gpio
+    pin: ${ventil_7}
+    name: ${devicename}_ventil_7
+    id: ${devicename}_ventil_7
+    inverted: true
+    icon: mdi:pipe-valve
+
+# Ventil 8
+  - platform: gpio
+    pin: ${ventil_8}
+    name: ${devicename}_ventil_8
+    id: ${devicename}_ventil_8
+    inverted: true
+    icon: mdi:pipe-valve
+
+# An- / Aussschalter für Trafo
+  - platform: gpio
+    pin: ${trafo}
+    name: ${devicename}_trafo
+    id: ${devicename}_trafo
+    inverted: true
+    icon: mdi:power-plug-outline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------------- BEWÄSSERUNG AM MORGEN  -------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+  - platform: template
+    name: ${devicename}_ventil_1_morning
+    id:  ${devicename}_ventil_1_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_2_morning
+    id:  ${devicename}_ventil_2_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_3_morning
+    id:  ${devicename}_ventil_3_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_4_morning
+    id:  ${devicename}_ventil_4_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_5_morning
+    id:  ${devicename}_ventil_5_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_6_morning
+    id:  ${devicename}_ventil_6_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_7_morning
+    id:  ${devicename}_ventil_7_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+  - platform: template
+    name: ${devicename}_ventil_8_morning
+    id:  ${devicename}_ventil_8_morning
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset-up
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ----------------------------- BEWÄSSERUNG AM ABEND  -----------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+  - platform: template
+    name: ${devicename}_ventil_1_evening
+    id:  ${devicename}_ventil_1_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_2_evening
+    id:  ${devicename}_ventil_2_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_3_evening
+    id:  ${devicename}_ventil_3_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_4_evening
+    id:  ${devicename}_ventil_4_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_5_evening
+    id:  ${devicename}_ventil_5_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_6_evening
+    id:  ${devicename}_ventil_6_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_7_evening
+    id:  ${devicename}_ventil_7_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+  - platform: template
+    name: ${devicename}_ventil_8_evening
+    id:  ${devicename}_ventil_8_evening
+    optimistic: true
+    restore_state: yes
+    icon: mdi:weather-sunset
+
+
+
+
+
+
+
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# ---------------------------------- ALLOW  -----------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------
+
+# ohne Name, da im Frontend nicht gebraucht. Werden zur Prüfung der 24h/48h/72-Zeiten genutzt
+# und dienen als "Anschaltzeitfenster"
+
+
+  - platform: template
+    id:  ${devicename}_ventil_1_allow
+    optimistic: true
+    restore_state: yes
+
+  - platform: template
+    id:  ${devicename}_ventil_2_allow
+    optimistic: true
+    restore_state: yes
+    
+  - platform: template
+    id:  ${devicename}_ventil_3_allow
+    optimistic: true
+    restore_state: yes
+
+  - platform: template
+    id:  ${devicename}_ventil_4_allow
+    optimistic: true
+    restore_state: yes
+
+  - platform: template
+    id:  ${devicename}_ventil_5_allow
+    optimistic: true
+    restore_state: yes
+
+  - platform: template
+    id:  ${devicename}_ventil_6_allow
+    optimistic: true
+    restore_state: yes
+
+  - platform: template
+    id:  ${devicename}_ventil_7_allow
+    optimistic: true
+    restore_state: yes
+
+  - platform: template
+    id:  ${devicename}_ventil_8_allow
+    optimistic: true
+    restore_state: yes
